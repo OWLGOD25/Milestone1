@@ -6,16 +6,22 @@ public class PlayerScript : MonoBehaviour
 {
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] float moveSpeed;
+    public float fireRate = 2f;
+   
     // Start is called before the first frame update
     public int maxHealth = 5; // Player's maximum health
     public int currentHealth; // Player's current health
 
     // Start is called before the first frame update
-   
+    void Start()
+    {
+        nextFireTime = Time.time + fireRate; // Initialize the timer
+    }
 
 
-// Update is called once per frame
-void Update()
+
+    // Update is called once per frame
+    void Update()
     {
         // Individual key input.
         //if (Input.GetKey("up") || Input.GetKey(KeyCode.W)) // holding down key.
@@ -43,6 +49,30 @@ void Update()
         {
             Instantiate(bulletPrefab, transform.position, Quaternion.identity);
         }
+
+        // Fire a spread shot
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            // Create a spread of bullets
+            Instantiate(bulletPrefab, transform.position + new Vector3(-0.2f, 0f, 0f), Quaternion.identity); // Left
+            Instantiate(bulletPrefab, transform.position, Quaternion.identity); // Center
+            Instantiate(bulletPrefab, transform.position + new Vector3( 0.2f, 0f, 0f), Quaternion.identity); // Right
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q) && Time.time > nextFireTime)
+        {
+            FireBigSlowShot();
+        }
     }
 
-}
+    private float nextFireTime; // Timer for the big slow bullet
+
+    private void FireBigSlowShot()
+    {
+        GameObject bigBullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        bigBullet.transform.localScale = new Vector3(3f, 3f, 1f); // Set the big scale
+        nextFireTime = Time.time + 1f; // Adjust the fire rate as needed
+    }
+  }
+  
+

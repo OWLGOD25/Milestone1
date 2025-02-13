@@ -19,7 +19,7 @@ public class PlayerBulletScript : MonoBehaviour
     {
         transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
         // Method 1, world space check.
-        if (transform.position.x > 6.8f) // When getting to a certain point, destroy bullet.
+        if (transform.position.x > 20f) // When getting to a certain point, destroy bullet.
         {
             Destroy(gameObject);
         }
