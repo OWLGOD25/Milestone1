@@ -46,6 +46,10 @@ public class PlayerBulletScript : MonoBehaviour
             scoreManager.AddScore(scoreValue);
             Destroy(this.gameObject);
             Destroy(collision.gameObject);
+        } 
+        else 
+        {
+            Debug.Log(collision.gameObject.tag);
         }
         
     }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PowerUPScript : MonoBehaviour
 {
+   
     [SerializeField] Transform PowerUP;
     public float spawnInterval = 2f;
 
@@ -24,9 +25,22 @@ public class PowerUPScript : MonoBehaviour
 
 
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "PUP1")
+        {
+            GameObject Player = collision.gameObject;
+            PlayerScript playerscript = Player.GetComponent<PlayerScript>();
+            if (playerscript)
+            {
+                
+            }
+        }
+    }
     // Update is called once per frame
     void Update()
     {
-        
+       
     }
 }

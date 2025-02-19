@@ -7,6 +7,9 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] float moveSpeed;
     public float fireRate = 2f;
+    public bool FIRE;
+    public float Delay = 0;
+    public float Firerate = -1;
    
     // Start is called before the first frame update
     public int maxHealth = 5; // Player's maximum health
@@ -44,10 +47,19 @@ public class PlayerScript : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
         transform.Translate(new Vector3(x, y, 0f) * (moveSpeed * Time.deltaTime));
+
+
+        //Press J to shoot
+        FIRE = Input.GetButtonDown("Shoot");
+        BasicShootingPattern();
+
+
+        //The fire button is LCtrl but you can press space to do the same thing
+    
         // Fire a bullet.
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+            NormalShot();
         }
 
         // Fire a spread shot
@@ -62,6 +74,33 @@ public class PlayerScript : MonoBehaviour
         {
             FireBigSlowShot();
         }
+      
+
+
+    }
+
+    private void BasicShootingPattern()
+    {
+        //The fire button is J but you can press space to do the Normal shot with out any limits
+        if (FIRE && Delay <= 0)
+        {
+            NormalShot();
+            float secondsPerShot = 1 / Firerate;
+            Delay += secondsPerShot;
+        }
+
+        Delay -= Time.deltaTime;
+
+
+        if (Delay < 0)
+        {
+            Delay = 0;
+        }
+    }
+
+    private void NormalShot()
+    {
+        Instantiate(bulletPrefab, transform.position, Quaternion.identity);
     }
 
     private float nextFireTime; // Timer for the big slow bullet

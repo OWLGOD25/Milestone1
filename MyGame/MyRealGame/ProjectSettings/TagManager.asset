@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Target
+  - PUP1
+  - PUP2
+  - PUP3
   layers:
   - Default
   - TransparentFX
