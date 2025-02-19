@@ -53,10 +53,9 @@ public class PlayerScript : MonoBehaviour
         // Fire a spread shot
         if (Input.GetKeyDown(KeyCode.E))
         {
-            // Create a spread of bullets
-            Instantiate(bulletPrefab, transform.position + new Vector3(-0.2f, 0f, 0f), Quaternion.identity); // Left
-            Instantiate(bulletPrefab, transform.position, Quaternion.identity); // Center
-            Instantiate(bulletPrefab, transform.position + new Vector3( 0.2f, 0f, 0f), Quaternion.identity); // Right
+
+            MoreShot();
+           
         }
 
         if (Input.GetKeyDown(KeyCode.Q) && Time.time > nextFireTime)
@@ -72,6 +71,16 @@ public class PlayerScript : MonoBehaviour
         GameObject bigBullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
         bigBullet.transform.localScale = new Vector3(3f, 3f, 1f); // Set the big scale
         nextFireTime = Time.time + 1f; // Adjust the fire rate as needed
+    }
+
+    private void MoreShot()
+    {
+
+        // Create a multiple of bullets
+        Instantiate(bulletPrefab, transform.position + new Vector3(-0.4f, 0f, 0f), Quaternion.identity); // Left
+        Instantiate(bulletPrefab, transform.position, Quaternion.identity); // Center
+        Instantiate(bulletPrefab, transform.position + new Vector3(0.2f, 0f, 0f), Quaternion.identity); // Right
+
     }
   }
   

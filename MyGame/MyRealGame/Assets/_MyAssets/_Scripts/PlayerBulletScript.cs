@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,10 +9,12 @@ public class PlayerBulletScript : MonoBehaviour
     [SerializeField] ScoreManager scoreManager;
     int scoreValue = 10;
     private float moveSpeed = 20;
+    
     // Start is called before the first frame update
     void Start()
     {
         scoreManager = FindObjectOfType<ScoreManager>();
+
     }
 
     // Update is called once per frame
@@ -34,11 +37,17 @@ public class PlayerBulletScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Target")
+        if (collision.gameObject.tag == "Target" ||
+            collision.gameObject.tag == "PUP1" ||
+            collision.gameObject.tag == "PUP2" ||
+            collision.gameObject.tag == "PUP3")
         {
+
             scoreManager.AddScore(scoreValue);
             Destroy(this.gameObject);
             Destroy(collision.gameObject);
         }
+        
     }
+
 }
