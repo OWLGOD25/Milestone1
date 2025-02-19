@@ -8,7 +8,7 @@ public class SpawnEnemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Vector3 spawnPoint = new Vector3(-7f, Random.Range(-10f, 5f), 0f);
+        Vector3 spawnPoint = new Vector3(-13f, Random.Range(-10f, 5f), 0f);
         Instantiate(enemyToSpawn, spawnPoint, Quaternion.identity);
     }
 

@@ -18,7 +18,7 @@ public class RockScript : MonoBehaviour
     private void RockSpawn()
     {
 
-        Vector3 randomSpawn = new Vector3(8.5f, Random.Range(-8.5f, 5.5f), 0f);
+        Vector3 randomSpawn = new Vector3(9.5f, Random.Range(-5.5f, 5.5f), 0f);
         Transform newTarget = Instantiate(spacerock, randomSpawn, Quaternion.identity);
         newTarget.gameObject.AddComponent<MoveLeft>();
 

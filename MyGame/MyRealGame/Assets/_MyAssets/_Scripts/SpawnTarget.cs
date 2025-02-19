@@ -16,7 +16,7 @@
     private void TargetSpawn()
         {
         
-            Vector3 randomSpawn = new Vector3(8.5f, Random.Range(-5.5f, 5.5f), 0f);
+            Vector3 randomSpawn = new Vector3(9.5f, Random.Range(-5f, 5.5f), 0f);
         Transform newTarget = Instantiate(targetPrefab, randomSpawn, Quaternion.identity);
         newTarget.gameObject.AddComponent<MoveLeft>();
        

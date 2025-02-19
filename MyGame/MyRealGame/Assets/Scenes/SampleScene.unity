@@ -1204,6 +1204,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 281780390371818062, guid: 85616c1a12267ad48ab7d7eee44f96d4, type: 3}
   moveSpeed: 3
+  fireRate: 2
   maxHealth: 100
   currentHealth: 0
 --- !u!60 &1692028160
