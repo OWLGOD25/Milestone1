@@ -6,10 +6,20 @@ public class PlayerScript : MonoBehaviour
 {
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] float moveSpeed;
-    public float fireRate = 2f;
     public bool FIRE;
     public float Delay = 0;
     public float Firerate = -1;
+
+    public ShootMode FireMode = ShootMode.BasicShooting;
+
+    public enum ShootMode
+    { 
+    BasicShooting = 0,
+    MoreShot,
+    FireBigSlowShot,
+    Count
+    }
+
    
     // Start is called before the first frame update
     public int maxHealth = 5; // Player's maximum health
@@ -18,7 +28,7 @@ public class PlayerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        nextFireTime = Time.time + fireRate; // Initialize the timer
+        nextFireTime = Time.time + Firerate; // Initialize the timer
     }
 
 
@@ -51,42 +61,70 @@ public class PlayerScript : MonoBehaviour
 
         //Press J to shoot
         FIRE = Input.GetButtonDown("Shoot");
-        BasicShootingPattern();
+       
 
-
-        //The fire button is LCtrl but you can press space to do the same thing
-    
         // Fire a bullet.
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            NormalShot();
+            FireMode = ShootMode.BasicShooting;
+            
         }
 
         // Fire a spread shot
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.Alpha2))
         {
+            FireMode = ShootMode.MoreShot;
 
-            MoreShot();
+       
            
         }
 
-        if (Input.GetKeyDown(KeyCode.Q) && Time.time > nextFireTime)
+        if (Input.GetKeyDown(KeyCode.Alpha3) && Time.time > nextFireTime)
         {
-            FireBigSlowShot();
+
+            FireMode = ShootMode.FireBigSlowShot;
+            
         }
-      
+
+        if (FireMode == ShootMode.BasicShooting)
+        {
+            BasicShooting();
+
+        } 
+        else if (FireMode == ShootMode.MoreShot)
+        {
+            MoreShot();
+        }
+
+        //different way but the same but with switch statements
+    // switch(FireMode)
+    // {
+    //     case ShootMode.BasicShooting;
+    //         NormalShot();
+    //         break;
+    //         case ShootMode.NormalShot;
+    //         BasicShooting();
+    //         break;
+    //         case ShootMode.MoreShot;
+    //         MoreShot();
+    //         break;
+    //         case ShootMode.FireBigSlowShot;
+    //         FireBigSlowShot();
+    //         break;
+    //
+    // }
 
 
     }
 
-    private void BasicShootingPattern()
+    private void BasicShooting()
     {
-        //The fire button is J but you can press space to do the Normal shot with out any limits
+        
         if (FIRE && Delay <= 0)
         {
-            NormalShot();
+            Instantiate(bulletPrefab, transform.position, Quaternion.identity);
             float secondsPerShot = 1 / Firerate;
-            Delay += secondsPerShot;
+            Delay = secondsPerShot;
         }
 
         Delay -= Time.deltaTime;
@@ -98,10 +136,10 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    private void NormalShot()
-    {
-        Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-    }
+     private void NormalShot()
+     {
+         Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+     }
 
     private float nextFireTime; // Timer for the big slow bullet
 
@@ -110,15 +148,33 @@ public class PlayerScript : MonoBehaviour
         GameObject bigBullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
         bigBullet.transform.localScale = new Vector3(3f, 3f, 1f); // Set the big scale
         nextFireTime = Time.time + 1f; // Adjust the fire rate as needed
+
     }
 
     private void MoreShot()
     {
 
-        // Create a multiple of bullets
-        Instantiate(bulletPrefab, transform.position + new Vector3(-0.4f, 0f, 0f), Quaternion.identity); // Left
-        Instantiate(bulletPrefab, transform.position, Quaternion.identity); // Center
-        Instantiate(bulletPrefab, transform.position + new Vector3(0.2f, 0f, 0f), Quaternion.identity); // Right
+        if (FIRE && Delay <= 0)
+        {
+            Vector3 eulerRotation = transform.rotation.eulerAngles; // converts to XYZ angles
+                                                                    // Create a multiple of bullets
+            Instantiate(bulletPrefab, transform.position,
+                Quaternion.Euler(eulerRotation.x, eulerRotation.y, eulerRotation.z + 30));// Left
+            Instantiate(bulletPrefab, transform.position,
+                Quaternion.Euler(eulerRotation.x, eulerRotation.y, eulerRotation.z)); // Center
+            Instantiate(bulletPrefab, transform.position,
+                Quaternion.Euler(eulerRotation.x, eulerRotation.y, eulerRotation.z - 30));  // Right
+            float secondsPerShot = 1 / Firerate;
+            Delay = secondsPerShot;
+        }
+
+        Delay -= Time.deltaTime;
+
+
+        if (Delay < 0)
+        {
+            Delay = 0;
+        }
 
     }
   }

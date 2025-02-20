@@ -676,11 +676,11 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 0
-  cloudProjectId: 
+  cloudProjectId: 1d5155de-c3e9-40a1-a105-327df7db30a5
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: MyRealGame
+  organizationId: tyronjf44
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 
