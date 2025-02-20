@@ -726,7 +726,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPrefab: {fileID: 5694376902146287875, guid: ba4f3a26cc6e61b4c8a18a4bb5796def, type: 3}
-  spawnInterval: 2
+  spawnInterval: 4
 --- !u!4 &1233571338
 Transform:
   m_ObjectHideFlags: 0
@@ -768,7 +768,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251af143503ec4f4d988a0ee27d4a98b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PowerUP: {fileID: 1434764099736060534, guid: c0521532fd739d3418ca2534ead8e046, type: 3}
+  PowerUP1: {fileID: 1434764099736060534, guid: 6ed76f3d5589b5547a0ac8a3fcb8946c, type: 3}
+  PowerUP2: {fileID: 1434764099736060534, guid: c0521532fd739d3418ca2534ead8e046, type: 3}
+  PowerUP3: {fileID: 1434764099736060534, guid: f9f5a595b5f9c824bb79f724405c4d62, type: 3}
   spawnInterval: 2
 --- !u!1 &1387122353
 GameObject:
@@ -1219,9 +1221,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 281780390371818062, guid: 85616c1a12267ad48ab7d7eee44f96d4, type: 3}
   moveSpeed: 3
-  fireRate: 2
-  maxHealth: 100
-  currentHealth: 0
+  FIRE: 0
+  Delay: 0
+  Firerate: -1
+  FireMode: 0
 --- !u!60 &1692028160
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -1266,10 +1269,12 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.28786445, y: 0.51091206}
-      - {x: -0.2902007, y: -0.50040853}
-      - {x: 0.56948805, y: -0.0037437081}
-      - {x: 0.5694879, y: -0.0037437081}
+    - - {x: -0.2826488, y: 0.83950305}
+      - {x: -1.4835477, y: -0.08581722}
+      - {x: -1.4894435, y: -0.09556866}
+      - {x: -0.3267107, y: -0.93331397}
+      - {x: 1.4750059, y: -0.05612898}
+      - {x: 1.4600383, y: -0.033678174}
   m_UseDelaunayMesh: 0
 --- !u!4 &1692028161
 Transform:
