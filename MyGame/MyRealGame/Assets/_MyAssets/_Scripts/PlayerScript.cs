@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
@@ -9,6 +10,10 @@ public class PlayerScript : MonoBehaviour
     public bool FIRE;
     public float Delay = 0;
     public float Firerate = -1;
+    private float pupEffectDuration = 5f; // Duration of the PUP effect (in seconds)
+    private float pupEffectStartTime = 0f; // Time when the PUP effect started
+
+
 
     public ShootMode FireMode = ShootMode.BasicShooting;
 
@@ -21,10 +26,7 @@ public class PlayerScript : MonoBehaviour
     }
 
    
-    // Start is called before the first frame update
-    public int maxHealth = 5; // Player's maximum health
-    public int currentHealth; // Player's current health
-
+   
     // Start is called before the first frame update
     void Start()
     {
@@ -36,24 +38,7 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Individual key input.
-        //if (Input.GetKey("up") || Input.GetKey(KeyCode.W)) // holding down key.
-        //{
-        //    transform.Translate(Vector3.up * moveSpeed * Time.deltaTime);
-        //}
-        //if (Input.GetKey("down") || Input.GetKey(KeyCode.S))
-        //{
-        //    transform.Translate(Vector3.down * moveSpeed * Time.deltaTime);
-        //}
-        //if (Input.GetKey("left") || Input.GetKey(KeyCode.A))
-        //{
-        //    transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
-        //}
-        //if (Input.GetKey("right") || Input.GetKey(KeyCode.D))
-        //{
-        //    transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
-        //}
-        // Axis input. An axis goes from -1 to 0 to 1
+        
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
         transform.Translate(new Vector3(x, y, 0f) * (moveSpeed * Time.deltaTime));
@@ -61,60 +46,35 @@ public class PlayerScript : MonoBehaviour
 
         //Press J to shoot
         FIRE = Input.GetButtonDown("Shoot");
-       
 
-        // Fire a bullet.
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            FireMode = ShootMode.BasicShooting;
-            
-        }
-
-        // Fire a spread shot
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            FireMode = ShootMode.MoreShot;
 
        
-           
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha3) && Time.time > nextFireTime)
-        {
-
-            FireMode = ShootMode.FireBigSlowShot;
-            
-        }
-
-        if (FireMode == ShootMode.BasicShooting)
-        {
-            BasicShooting();
-
-        } 
-        else if (FireMode == ShootMode.MoreShot)
-        {
-            MoreShot();
-        }
 
         //different way but the same but with switch statements
-    // switch(FireMode)
-    // {
-    //     case ShootMode.BasicShooting;
-    //         NormalShot();
-    //         break;
-    //         case ShootMode.NormalShot;
-    //         BasicShooting();
-    //         break;
-    //         case ShootMode.MoreShot;
-    //         MoreShot();
-    //         break;
-    //         case ShootMode.FireBigSlowShot;
-    //         FireBigSlowShot();
-    //         break;
-    //
-    // }
+        if (Input.GetButtonDown("Shoot") && Time.time > nextFireTime)
+        {
+            switch (FireMode)
+            {
+                case ShootMode.BasicShooting:
+                    BasicShooting();
+                    break;
+                case ShootMode.MoreShot:
+                    MoreShot();
+                    break;
+                case ShootMode.FireBigSlowShot:
+                    FireBigSlowShot();
+                    break;
 
+            }
+        }
+        if (pupEffectStartTime != 0f && Time.time - pupEffectStartTime >= pupEffectDuration)
+        {
+            // Reset the fire mode to the default
+            FireMode = ShootMode.BasicShooting; // Replace with your default fire mode
+            pupEffectStartTime = 0f; // Reset the timer
+            Debug.Log("PUP effect ended, fire mode reset.");
 
+        }
     }
 
     private void BasicShooting()
@@ -175,8 +135,83 @@ public class PlayerScript : MonoBehaviour
         {
             Delay = 0;
         }
+    }
+private void OnCollisionEnter2D(Collision2D collision)
+{
+        if (collision.gameObject.tag == "PUP1" ||
+            collision.gameObject.tag == "PUP2" ||
+            collision.gameObject.tag == "PUP3")
+        {
+            Destroy(collision.gameObject);
+            Debug.Log(gameObject.tag);
+            if (collision.gameObject.tag == "PUP1")
+            {
+                FireMode = ShootMode.MoreShot; // Or whatever mode you want for PUP1
+            }
+            else if (collision.gameObject.tag == "PUP2")
+            {
+                FireMode = ShootMode.FireBigSlowShot; // Or whatever mode you want for PUP2
+            }
+            else if (collision.gameObject.tag == "PUP3")
+            {
+                FireMode = ShootMode.BasicShooting; // Or whatever mode you want for PUP3
+            }
+
+            Debug.Log("Fire mode switched to: " + FireMode);
+        }
+
 
     }
   }
-  
 
+// Individual key input.
+//if (Input.GetKey("up") || Input.GetKey(KeyCode.W)) // holding down key.
+//{
+//    transform.Translate(Vector3.up * moveSpeed * Time.deltaTime);
+//}
+//if (Input.GetKey("down") || Input.GetKey(KeyCode.S))
+//{
+//    transform.Translate(Vector3.down * moveSpeed * Time.deltaTime);
+//}
+//if (Input.GetKey("left") || Input.GetKey(KeyCode.A))
+//{
+//    transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
+//}
+//if (Input.GetKey("right") || Input.GetKey(KeyCode.D))
+//{
+//    transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
+//}
+// Axis input. An axis goes from -1 to 0 to 1
+
+//  // Fire a bullet. in the first way that is coded
+//  if (Input.GetKeyDown(KeyCode.Alpha1))
+//  {
+//      FireMode = ShootMode.BasicShooting;
+//
+//  }
+//
+//  // Fire a spread shot
+//  if (Input.GetKeyDown(KeyCode.Alpha2))
+//  {
+//      FireMode = ShootMode.MoreShot;
+//
+//
+//
+//  }
+//
+//  if (Input.GetKeyDown(KeyCode.Alpha3) && Time.time > nextFireTime)
+//  {
+//
+//      FireMode = ShootMode.FireBigSlowShot;
+//
+//  }
+//
+//  if (FireMode == ShootMode.BasicShooting)
+//  {
+//      BasicShooting();
+//
+//  }
+//  else if (FireMode == ShootMode.MoreShot)
+//  {
+//      MoreShot();
+//  }

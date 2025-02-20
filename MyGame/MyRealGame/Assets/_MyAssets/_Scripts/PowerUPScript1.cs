@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class PowerUPScript : MonoBehaviour
 {
-   
-    [SerializeField] Transform PowerUP;
-    public float spawnInterval = 2f;
+
+    [SerializeField] Transform PowerUP1;
+    [SerializeField] Transform PowerUP2;
+    [SerializeField] Transform PowerUP3;
+    public float spawnInterval = 4.5f;
 
     private void Start()
     {
@@ -14,33 +16,41 @@ public class PowerUPScript : MonoBehaviour
 
 
     }
-
-
     private void PowerUPSpawn()
     {
+        // Choose a random power-up to spawn
+        int randomIndex = Random.Range(0, 3); // 0, 1, or 2
+        Transform powerUpToSpawn;
 
-        Vector3 randomSpawn = new Vector3(9.5f, Random.Range(-5.5f, 5.5f), 0f);
-        Transform newTarget = Instantiate(PowerUP, randomSpawn, Quaternion.identity);
-        newTarget.gameObject.AddComponent<MoveLeft>();
-
-
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == "PUP1")
+        switch (randomIndex)
         {
-            GameObject Player = collision.gameObject;
-            PlayerScript playerscript = Player.GetComponent<PlayerScript>();
-            if (playerscript)
-            {
-                
-            }
+            case 0:
+                powerUpToSpawn = PowerUP1;
+                break;
+            case 1:
+                powerUpToSpawn = PowerUP2;
+                break;
+            case 2:
+                powerUpToSpawn = PowerUP3;
+                break;
+            default:
+                powerUpToSpawn = PowerUP1; // Default to PowerUP1 if something goes wrong
+                break;
+
         }
+                Vector3 randomSpawn = new Vector3(9.5f, Random.Range(-5.5f, 5.5f), 0f);
+                Transform newTarget = Instantiate(powerUpToSpawn, randomSpawn, Quaternion.identity);
+                newTarget.gameObject.AddComponent<MoveLeft>();
+        }
+
+
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
+
     }
-    // Update is called once per frame
-    void Update()
-    {
-       
-    }
-}
+
+        

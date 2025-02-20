@@ -37,10 +37,7 @@ public class PlayerBulletScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Target" ||
-            collision.gameObject.tag == "PUP1" ||
-            collision.gameObject.tag == "PUP2" ||
-            collision.gameObject.tag == "PUP3")
+        if (collision.gameObject.tag == "Target")
         {
 
             scoreManager.AddScore(scoreValue);

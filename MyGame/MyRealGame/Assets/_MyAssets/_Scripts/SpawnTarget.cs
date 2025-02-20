@@ -5,7 +5,8 @@
     public class SpawnTarget : MonoBehaviour
     {
         [SerializeField] Transform targetPrefab;
-        public float spawnInterval = 2f;
+
+        public float spawnInterval = 5f;
      
         private void Start()
         {

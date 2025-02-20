@@ -22,8 +22,7 @@ public class MoveLeft : MonoBehaviour
         }
         else
         {
-            // Teleport back to the starting position
-            transform.position = startingPosition;
+            Destroy(gameObject);
         }
     }
 }
