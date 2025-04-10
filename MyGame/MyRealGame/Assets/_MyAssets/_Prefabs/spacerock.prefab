@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 7041992829574325478}
   - component: {fileID: 7004865747839542044}
   - component: {fileID: 3110785005515158529}
+  - component: {fileID: -5029741727383264138}
   m_Layer: 0
   m_Name: spacerock
   m_TagString: Target
@@ -277,3 +278,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-5029741727383264138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519713613568194971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 903d3e8ec97acc94689f9653835de83f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionSound: {fileID: 8300000, guid: 820ec56c9a66923429a815887ec363d8, type: 3}

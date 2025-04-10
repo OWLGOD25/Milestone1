@@ -31,6 +31,7 @@ public class SpawnTarget : MonoBehaviour
         Vector3 randomSpawn = new Vector3(9.5f, Random.Range(-5f, 5.5f), 0f);
         Transform newTarget = Instantiate(targetPrefab, randomSpawn, Quaternion.identity);
 
+
         // Start shooting bullets to the left
         StartCoroutine(ShootBullets(newTarget));
     }
@@ -80,14 +81,3 @@ public class SpawnTarget : MonoBehaviour
     }
 }
 
-public class BulletCollisionHandler : MonoBehaviour
-{
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("one")) // Check if the bullet hits the player
-        {
-            Debug.Log("Bullet hit the player! Restarting the game...");
-            Destroy(collision.gameObject); // Destroy the player
-        }
-    }
-}
