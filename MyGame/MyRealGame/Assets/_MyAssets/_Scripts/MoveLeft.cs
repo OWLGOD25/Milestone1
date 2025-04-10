@@ -15,7 +15,7 @@ public class MoveLeft : MonoBehaviour
 
     void Update()
     {
-        // Move left until the distance is reached
+        Debug.Log($"Position: {transform.position}, Starting Position: {startingPosition}, Distance: {Vector3.Distance(transform.position, startingPosition)}");
         if (Vector3.Distance(transform.position, startingPosition) < moveDistance)
         {
             transform.Translate(Vector3.left * speed * Time.deltaTime);

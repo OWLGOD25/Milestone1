@@ -6,14 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class PlayerBulletScript : MonoBehaviour
 {
-    [SerializeField] ScoreManager scoreManager;
-    int scoreValue = 10;
+
+
     private float moveSpeed = 20;
     
     // Start is called before the first frame update
     void Start()
     {
-        scoreManager = FindObjectOfType<ScoreManager>();
+
 
     }
 
@@ -40,7 +40,7 @@ public class PlayerBulletScript : MonoBehaviour
         if (collision.gameObject.tag == "Target")
         {
 
-            scoreManager.AddScore(scoreValue);
+     
             Destroy(this.gameObject);
             Destroy(collision.gameObject);
             Debug.Log(collision.gameObject.tag);
